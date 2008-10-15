@@ -30,7 +30,9 @@
 
 /*!
   \class feZMetaData fezmetadata.php
-  \brief The class feZMetaData does
+  \brief Handles eZ publish meta data
+
+  It encapsulates the data for a meta data and provides functions for dealing with attributes.
 
 */
 
@@ -79,7 +81,14 @@ class feZMetaData extends eZPersistentObject
 					'name' => 'fezmeta_data' );
 	}
 
-
+	/*!
+	 Create a new meta data and returns it.
+	 \param $metaName The Meta Name like keywords or description
+	 \param $metaValue The Meta value
+	 \param $contentObjectID the ID of the Content Object
+	 \return Meta Data Object
+	 \static
+	*/
 	static function create( $metaName = null, $metaValue = null, $contentObjectID = null )
 	{
 		$rows = array( 'id' => null,
@@ -89,7 +98,10 @@ class feZMetaData extends eZPersistentObject
 		$meta = new feZMetaData( $rows );
 		return $meta;
 	}
-
+	
+	/*!
+	 Returns the translation of the Meta Name
+	*/
 	function getName()
 	{
 		$ini = eZINI::instance('ezmetadata.ini');
@@ -101,6 +113,9 @@ class feZMetaData extends eZPersistentObject
 		return $metaName;
 	}
 
+	/*!
+	 Return the value of the meta object
+	*/
 	function getValue()
 	{
 		return $this->attribute('meta_value');
@@ -205,8 +220,7 @@ class feZMetaData extends eZPersistentObject
         $query = "SELECT creator_id
                   FROM ezcontentobject_version
                   WHERE
-                        contentobject_id = '$this->ContentObjectID' AND
-                        version = '$this->ContentObjectVersion' ";
+                        contentobject_id = '$this->ContentObjectID' ";
 
         $creatorArray = $db->arrayQuery( $query );
         return eZContentObject::fetch( $creatorArray[0]['creator_id'] );
@@ -245,6 +259,11 @@ class feZMetaData extends eZPersistentObject
         $this->ContentObject = $object;
     }
 
+	/*!
+	\static
+	 Fetch the meta data object with the given ID
+	 \return the meta data object
+	*/
 	static function fetch( $metaID , $asObject = true)
 	{
 		$returnValue = null;
@@ -272,6 +291,10 @@ class feZMetaData extends eZPersistentObject
 		return $returnValue;
 	}
 
+	/*!
+	 Fetch all the meta data object associated at the node
+	 \return Meta Data Collection
+	*/
 	static function fetchByNodeID( $nodeID, $asObject = true )
 	{
 		$retArray = array();
@@ -300,11 +323,35 @@ class feZMetaData extends eZPersistentObject
 		return $retArray;
 	}
 
+	/*!
+	 Fetch all the meta data object associated at the object
+	 \param $contentObjectID The Content Object ID
+	 \param $asObject Determine if 
+	 \return Meta Data Collection
+	*/
+
 	static function fetchByContentObjectID( $contentObjectID, $asObject = true )
 	{
 		$retNodes = array();
-		if( !is_numeric( $contentObjectID ) )
-			return $retNodes;
+		$db = eZDB::instance();
+		if( is_numeric( $contentObjectID ) )
+		{
+			$query = "SELECT fezmeta_data.*
+					  FROM fezmeta_data 
+					  WHERE fezmeta_data.contentobject_id = $contentObjectID ";
+			$metaDataList = $db->arrayQuery( $query );
+			foreach( $metaDataList as $metaData )
+			{
+				if( $asObject )
+				{
+					$retArray[] = feZMetaData::makeObjectArray( $metaData );
+				}
+				else
+				{
+					$retArray[] = $metaData;
+				}
+			}
+		}
 	}
 
 	static function makeObjectArray( $array )
