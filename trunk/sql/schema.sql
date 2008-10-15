@@ -1,6 +1,6 @@
 CREATE TABLE fez_meta_data (
 id INT( 11 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
 contentobject_id INT( 11 ) NOT NULL ,
-name VARCHAR( 255 ) NOT NULL ,
-value VARCHAR( 255 ) NOT NULL
+meta_name VARCHAR( 255 ) NOT NULL ,
+meta_value VARCHAR( 255 ) NOT NULL
 )
