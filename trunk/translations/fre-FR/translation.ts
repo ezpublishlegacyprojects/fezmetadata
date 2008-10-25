@@ -33,6 +33,18 @@
 		<translation>Ajouter une meta donnée</translation>
 	</message>
 	<message>
+		<source>Update this Meta Data</source>
+		<translation>Editer cette Méta Donnée</translation>
+	</message>
+	<message>
+		<source>Metadata name</source>
+		<translation>Nom de la méta donnée</translation>
+	</message>
+	<message>
+		<source>Metadata value</source>
+		<translation>Contenu de la méta donnée</translation>
+	</message>
+	<message>
 		<source>Keywords</source>
 		<translation>Mots clés</translation>
 	</message>
