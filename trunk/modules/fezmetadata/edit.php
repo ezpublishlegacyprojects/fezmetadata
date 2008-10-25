@@ -56,8 +56,9 @@ if( $http->hasPostVariable( 'DiscardButton' ) )
 {
 	if( $http->hasPostVariable( 'ContentObjectID') )
 	{
+		$ContentObjectID = $http->postVariable( 'ContentObjectID' );
 		$ContentObject = eZContentObject::fetch( $ContentObjectID );
-		$ContentNodeID = $ContentObject->mainNodeID();
+		$ContentNodeID = $ContentObject->MainNodeID();
 		return $Module->redirectToView( 'view', array( 'full', $ContentNodeID ) );
 	}
 }
