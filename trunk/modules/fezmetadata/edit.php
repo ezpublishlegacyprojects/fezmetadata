@@ -44,12 +44,11 @@ if( $http->hasPostVariable( 'PublishButton' ) )
 		$MetaDataObject = feZMetaData::fetch( $metaID );
 		$MetaDataObject->setAttribute( 'meta_value', $MetaValue );
 	}
-
 	$MetaDataObject->store();
 	eZContentCacheManager::clearContentCache( $ContentObjectID );
 	$ContentObject = eZContentObject::fetch( $ContentObjectID );
-	$ContentNodeID = $ContentObject->mainNodeID();
-	return $Module->redirectToView( 'view', array( 'full', $ContentNodeID ) );
+
+	return $Module->redirectToView( 'view', array( 'full', $ContentObject->mainNodeID() ));
 }
 
 if( $http->hasPostVariable( 'DiscardButton' ) )
@@ -58,8 +57,7 @@ if( $http->hasPostVariable( 'DiscardButton' ) )
 	{
 		$ContentObjectID = $http->postVariable( 'ContentObjectID' );
 		$ContentObject = eZContentObject::fetch( $ContentObjectID );
-		$ContentNodeID = $ContentObject->MainNodeID();
-		return $Module->redirectToView( 'view', array( 'full', $ContentNodeID ) );
+		return $Module->redirectToView( 'view', array( 'full', $ContentObject->mainNodeID() ) );
 	}
 }
 

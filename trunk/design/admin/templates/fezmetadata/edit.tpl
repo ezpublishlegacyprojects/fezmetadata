@@ -19,15 +19,14 @@
 <div class="content-edit">
 	<div class="context-block">
 		<div class="box-header"><div class="box-tc"><div class="box-ml"><div class="box-mr"><div class="box-tl"><div class="box-tr">
-			<h1 class="context-title"><img class="transparent-png-icon" src="/share/icons/crystal-admin/32x32/mimetypes/empty.png" width="32" height="32" alt="metadata" title="metadata" />&nbsp;Modifier &lt;Nouveau metadata&gt;</h1>
+			<h1 class="context-title">{'Update this Meta Data'|i18n('fezmetadata')}</h1>
 			<div class="header-mainline"></div>
 		</div></div></div></div></div></div>
 
 		<div class="box-ml"><div class="box-mr"><div class="box-content">
 			<div class="context-information">
 				<p class="translation">        
-				    French (France)&nbsp;<img src="/share/icons/flags/fre-FR.gif" style="vertical-align: middle;" alt="fre-FR" />
-				</p>
+							</p>
 				<div class="break"></div>
 			</div>
 
@@ -37,7 +36,7 @@
 					<select id="metadata_name" class="box" name="metaDataName" value="{$object.meta_name}">
 						{def $availables_metadata=ezini( 'MetaData', 'AvailablesMetaData', 'ezmetadata.ini' ) }
 							{foreach $availables_metadata as $metadata}
-								<option value="{$metadata}">{$metadata}</option>
+								<option value="{$metadata}"{if $object.meta_name|eq($metadata)} selected="selected"{/if}>{$metadata}</option>
 							{/foreach}
 						{undef $availables_metadata}
 					</select>
