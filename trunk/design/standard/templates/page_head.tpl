@@ -39,7 +39,7 @@
 
 	{def $meta_data_list = fetch( fezmetadata, list_by_node_id, hash( node_id, $module_result.node_id ) )}
 	{foreach $meta_data_list as $meta_data}
-		<meta name="{$meta_data.meta_name|wash}" value="{$meta_data.meta_value|wash}" />
+		<meta name="{$meta_data.meta_name|wash}" content="{$meta_data.meta_value|wash}" />
 	{/foreach}
 	{undef $meta_data_list}
 
