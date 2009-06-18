@@ -16,6 +16,12 @@ class feZMetaDataFetchCollection
 		return array( 'result' => $retMetaData );
 	}
 
+    function fetchBySubTree($nodeID, $depth)
+    {
+        $retMetaData = feZMetaData::fetchBySubTree( $nodeID, $depth);
+        return array( 'result' => $retMetaData );
+    }
+
 	function checkAccess( $functionName, $contentObject )
 	{
 		if( $contentObject instanceof feZMetaData and $functionName)
