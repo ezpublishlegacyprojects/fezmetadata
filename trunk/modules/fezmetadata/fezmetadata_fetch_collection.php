@@ -8,6 +8,7 @@ class feZMetaDataFetchCollection
 
 	function fetchMetaData ( $metaDataID )
 	{
+        return array( 'result' => feZMetaData::fetch( $metaDataID ) );
 	}
 
 	function fetchByNodeID( $nodeID )
@@ -27,7 +28,6 @@ class feZMetaDataFetchCollection
 		if( $contentObject instanceof feZMetaData and $functionName)
 		{
 			$result = $contentObject->checkAccess( $functionName );
-			var_dump( $result );
 			return array( 'result' => $result );
 		}
 		else
@@ -35,22 +35,17 @@ class feZMetaDataFetchCollection
 			$user = eZUser::currentUser();
         	$userID = $user->attribute( 'contentobject_id' );
 
-		$accessResult = $user->hasAccessTo( 'fezmetadata', $functionName );
-		var_dump( $accessResult );
-		$accessWord = $accessResult['accessWord'];
+		    $accessResult = $user->hasAccessTo( 'fezmetadata', $functionName );
+		    $accessWord = $accessResult['accessWord'];
 
-
-		if( $accessWord == 'yes' )
-		{
-			echo "ok";
-			return 1;
+    		if( $accessWord == 'yes' )
+	    	{
+		    	return 1;
+    		}
+	    	else
+		    {
+    			return 0;
+	    	}
 		}
-		else
-		{
-			echo "no";
-			return 0;
-		}
-		}
-
 	}
 }

@@ -293,7 +293,10 @@ class feZMetaData extends eZPersistentObject
 
 	/*!
 	 Fetch all the meta data object associated at the node
-	 \return Meta Data Collection
+     @author Frédéric DAVID <fredericdavid@wanadoo.fr>
+     @param integer $nodeID
+     @param boolean $asObject
+	 @return Meta Data Collection
 	*/
 	static function fetchByNodeID( $nodeID, $asObject = true )
 	{
@@ -328,32 +331,27 @@ class feZMetaData extends eZPersistentObject
 	 for those which are empty.	 
 	 \return Meta Data Collection
 	*/
-	static function fetchBySubTree($nodeID, $depth, $asObject = true)
+	static function fetchBySubTree( $nodeID, $depth, $asObject = true )
 	{
-		$ini = eZINI::instance('ezmetadata.ini');
-		$metasList = $ini->variable('MetaData','AvailablesMetaData');
+		$ini = eZINI::instance( 'ezmetadata.ini' );
+		$metasList = $ini->variable( 'MetaData','AvailablesMetaData' );
 		$metasListState = array();
-		foreach($metasList as $metaName)
+		foreach( $metasList as $metaName )
 		{
 			$metasListState[$metaName] = false;
 		}
 		
-		return self::searchMetas($nodeID, $depth, array(), $metasListState);
+		return self::searchMetas( $nodeID, $depth, array(), $metasListState );
 	}
 	
-	private static function searchMetas($nodeID, $depth, $retArray, $metasListState)
+	private static function searchMetas( $nodeID, $depth, $retArray, $metasListState )
 	{
-		if($nodeID == $limitNodeID)
-		{
-			return $retArray;
-		}
-
-		$metasNode = self::fetchByNodeID($nodeID);
+		$metasNode = self::fetchByNodeID( $nodeID );
  		// update of the metas which are not defined
-		foreach($metasNode as $meta)
+		foreach( $metasNode as $meta )
 		{
-			$name = $meta->attribute('meta_name');
-			if(!$metasListState[$name])
+			$name = $meta->attribute( 'meta_name' );
+			if( !$metasListState[$name] )
 			{
 				$metasListState[$name] = true;
 				$retArray[] = $meta;
@@ -361,18 +359,18 @@ class feZMetaData extends eZPersistentObject
 		}	
 		
 		// If all metas are defined or the depth is over
-		if(count($retArray) == count($metasListState) || $depth == 0)
+		if( count( $retArray ) == count( $metasListState ) || $depth == 0 )
 		{
 			return $retArray;
 		}
 		// Else we try to complete the array with metas of the parent node
-		$node = eZContentObjectTreeNode::fetch($nodeID);
+		$node = eZContentObjectTreeNode::fetch( $nodeID );
 		// Case of the root node
-		if($node->object()->ID == 1)
+		if( $node->object()->ID == 1 )
 		{
 			return $retArray;
 		}
-		return self::searchMetas($node->object()->mainParentNodeID(), $depth - 1, $retArray, $metasListState);
+		return self::searchMetas( $node->object()->mainParentNodeID(), $depth - 1, $retArray, $metasListState );
 	}
 
 	/*!
