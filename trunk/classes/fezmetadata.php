@@ -366,7 +366,7 @@ class feZMetaData extends eZPersistentObject
 		// Else we try to complete the array with metas of the parent node
 		$node = eZContentObjectTreeNode::fetch( $nodeID );
 		// Case of the root node
-		if( $node->object()->ID == 1 )
+		if( $node->attribute( 'depth' ) == 1 )
 		{
 			return $retArray;
 		}
