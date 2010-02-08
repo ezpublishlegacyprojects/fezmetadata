@@ -48,7 +48,7 @@ if( $http->hasPostVariable( 'PublishButton' ) )
 	eZContentCacheManager::clearContentCache( $ContentObjectID );
 	$ContentObject = eZContentObject::fetch( $ContentObjectID );
 
-	return $Module->redirectToView( 'view', array( 'full', $ContentObject->mainNodeID() ));
+	return $Module->redirect('content', 'view', array( 'full', $ContentObject->mainNodeID() ));
 }
 
 if( $http->hasPostVariable( 'DiscardButton' ) )
@@ -57,7 +57,7 @@ if( $http->hasPostVariable( 'DiscardButton' ) )
 	{
 		$ContentObjectID = $http->postVariable( 'ContentObjectID' );
 		$ContentObject = eZContentObject::fetch( $ContentObjectID );
-		return $Module->redirectToView( 'view', array( 'full', $ContentObject->mainNodeID() ) );
+		return $Module->redirect( 'content', 'view', array( 'full', $ContentObject->mainNodeID() ) );
 	}
 }
 

@@ -45,7 +45,7 @@ function feZMetaData_ContentActionHandler( &$module, &$http, &$objectID )
 		eZContentCacheManager::clearContentCache( $objectID );
 		$ContentObject = eZContentObject::fetch( $objectID );
 		$ContentNodeID = $ContentObject->mainNodeID();
-		return $module->redirectToView( 'view', array( 'full', $ContentNodeID ) );
+		return $module->redirect( 'content', 'view', array( 'full', $ContentNodeID ) );
 	}
 }
 
