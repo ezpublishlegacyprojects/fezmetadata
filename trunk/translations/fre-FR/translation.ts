@@ -48,4 +48,8 @@
 		<source>Keywords</source>
 		<translation>Mots clés</translation>
 	</message>
+	<message>
+		<source>Title</source>
+		<translation>titre</translation>
+	</message>
 </context></TS>

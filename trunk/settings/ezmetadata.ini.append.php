@@ -4,6 +4,7 @@
 AvailablesMetaData[]
 AvailablesMetaData[]=description
 AvailablesMetaData[]=keywords
+AvailablesMetaData[]=title
 
 [MetaData_description]
 Name=Description
@@ -13,4 +14,8 @@ Operator=ezmetadata_description
 Name=Keywords
 Operator=ezmetadata_keywords
 
-*/ ?>
+[MetaData_title]
+Name=Title
+Operator=ezmetadata_title
+
+*/ 
