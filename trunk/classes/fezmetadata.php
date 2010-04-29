@@ -129,10 +129,16 @@ class feZMetaData extends eZPersistentObject
 		$accessResult = $user->hasAccessTo( 'fezmetadata', $functionName );
 		$accessWord = $accessResult['accessWord'];
 
-		if( $accessWord == 'yes' )
-			return 1;
-		else
-			return 0;
+        switch ( $accessWord )
+        {
+        case 'yes':
+            return 1;
+            break;
+        case 'limited':
+            return $this->object()->checkAccess( 'edit' );
+            break;
+        }
+        return 0;
 	}
 
 	/*!
@@ -196,7 +202,7 @@ class feZMetaData extends eZPersistentObject
             if ( $this->Permissions["can_edit"] != 1 )
             {
                  $user = eZUser::currentUser();
-                 if ( $user->id() == $this->ContentObject->attribute( 'id' ) )
+                 if ( $user->id() == $this->object()->attribute( 'id' ) )
                  {
                      $access = $user->hasAccessTo( 'user', 'selfedit' );
                      if ( $access['accessWord'] == 'yes' )
