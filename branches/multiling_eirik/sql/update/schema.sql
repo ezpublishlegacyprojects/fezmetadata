@@ -1,0 +1,1 @@
+ALTER TABLE `fezmeta_data` ADD `language` VARCHAR( 255 ) NOT NULL ;

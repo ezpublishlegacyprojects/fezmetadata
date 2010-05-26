@@ -31,6 +31,21 @@
 			</div>
 
 			<div class="context-attributes">
+				{def $language_list=ezini( 'Language', 'List', 'ezmetadata.ini' )}
+				{if gt( $language_list|count, '1' )}
+				<div class="block">
+					<label for="language">{'Language'|i18n('fezmetadata')}:</label>
+					<select id="langauge" class="box" name="language">
+						{foreach $language_list as $language_code => $language}
+							<option value="{$language_code}"{if $object.language|eq($language_code)} selected="selected"{/if}>{$language}</option>
+						{/foreach}
+					</select>
+				</div>
+				{else}
+					{foreach $language_list as $language_code => $language}
+						<input type="hidden" value="{$language_code}" name="language" />
+					{/foreach}
+				{/if}
 			    <div class="block">
 					<label for="metadata_name">{'Metadata name'|i18n('fezmetadata')}:</label>
 					<select id="metadata_name" class="box" name="metaDataName" value="{$object.meta_name}">

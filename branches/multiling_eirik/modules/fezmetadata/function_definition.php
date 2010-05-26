@@ -10,7 +10,11 @@ $FunctionList['list_by_node_id'] = array( 'name' => 'list_by_node_id',
 										  						array( 'name' => 'node_id',
 																	   'type' => 'integer',
 																	   'required' => true,
-																	   'default' => 0 ) ) );
+																	   'default' => 0 ),
+										  						array( 'name' => 'language',
+																	   'type' => 'string',
+																	   'required' => false,
+																	   'default' => '' ) ) );
 
 $FunctionList['tree_by_node_id'] = array( 'name' => 'tree_by_node_id',
                                           'operation_types' => array( 'read' ),
@@ -24,7 +28,11 @@ $FunctionList['tree_by_node_id'] = array( 'name' => 'tree_by_node_id',
                                                                 array( 'name' => 'depth',
                                                                        'type' => 'integer',
                                                                        'required' => true,
-                                                                       'default' => 0 ) ) );
+                                                                       'default' => 0 ),
+                                                                array( 'name' => 'language',
+																	   'type' => 'string',
+																	   'required' => false,
+																	   'default' => '' ) ) );
 
 
 $FunctionList['access'] = array( 'name' => 'access',

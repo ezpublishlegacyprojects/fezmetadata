@@ -22,11 +22,13 @@
 
 {* DESIGN: Content START *}<div class="box-ml"><div class="box-mr"><div class="box-content">
 
+{def $language_list=ezini( 'Language', 'List', 'ezmetadata.ini' )}
 <table class="list" cellspacing="0">
 	<tr>
     	<th class="tight"><img src={'toggle-button-16x16.gif'|ezimage} alt="{'Invert selection.'|i18n( 'design/admin/node/view/full' )}" title="{'Invert selection.'|i18n( 'design/admin/node/view/full' )}" onclick="ezjs_toggleCheckboxes( document.metadatasform, 'MetaDataIDSelection[]' ); return false;"/></th>
-		<th class="wide">Name</th>
-		<th class="wide">Value</th>
+		<th class="wide">{'Name'|i18n('fezmetadata')}</th>
+		<th class="wide">{'Value'|i18n('fezmetadata')}</th>
+		<th class="wide">{'Language'|i18n('fezmetadata')}</th>
 		<th class="edit">&nbsp;</th>
 	</tr>
 	{foreach $meta_data_list as $meta_data sequence array( bglight, bgdark ) as $sequence}
@@ -45,6 +47,9 @@
 			</td>
 			<td>
 				{$meta_data.value}
+			</td>
+			<td>
+				{$language_list[$meta_data.language]} ({$meta_data.language})
 			</td>
 			<td>
 			{section show=$meta_data.can_edit}

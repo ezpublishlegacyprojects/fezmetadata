@@ -5,7 +5,7 @@
 // Created on: <7-Jui-2008 10:18:22 sp>
 //
 // SOFTWARE NAME: feZ Meta Data
-// SOFTWARE RELEASE: 1.0.0
+// SOFTWARE RELEASE: 1.1.0
 // COPYRIGHT NOTICE: Copyright (C) 2008 Frédéric DAVID
 // SOFTWARE LICENSE: GNU General Public License v2.0
 // NOTICE: >
@@ -66,6 +66,10 @@ class feZMetaData extends eZPersistentObject
 										 "meta_value" => array( 'name' => 'MetaValue',
 										 				   'datatype' => 'text',
 														   'default' => '',
+														   'required' => true ),
+										"language" 	=> array( 'name' => 'Language',
+										 				   'datatype' => 'text',
+														   'default' => '',
 														   'required' => true ) ),
 					'keys' => array( 'id' ),
 					'function_attributes' => array( 'object' => 'object',
@@ -89,11 +93,12 @@ class feZMetaData extends eZPersistentObject
 	 \return Meta Data Object
 	 \static
 	*/
-	static function create( $metaName = null, $metaValue = null, $contentObjectID = null )
+	static function create( $metaName = null, $metaValue = null, $contentObjectID = null, $language = null )
 	{
 		$rows = array( 'id' => null,
 					   'meta_name' => $metaName,
 					   'meta_value' => $metaValue,
+					   'language'	=> $language,
 					   'contentobject_id' => $contentObjectID );
 		$meta = new feZMetaData( $rows );
 		return $meta;
@@ -299,12 +304,12 @@ class feZMetaData extends eZPersistentObject
 
 	/*!
 	 Fetch all the meta data object associated at the node
-     @author Frédéric DAVID <fredericdavid@wanadoo.fr>
-     @param integer $nodeID
-     @param boolean $asObject
-	 @return Meta Data Collection
+     \author Frédéric DAVID <fredericdavid@wanadoo.fr>
+     \param integer $nodeID
+     \param boolean $asObject
+	 \return Meta Data Collection
 	*/
-	static function fetchByNodeID( $nodeID, $asObject = true )
+	static function fetchByNodeID( $nodeID, $asObject = true, $language='' )
 	{
 		$retArray = array();
         $db = eZDB::instance();
@@ -315,6 +320,12 @@ class feZMetaData extends eZPersistentObject
 					  WHERE ezcontentobject_tree.contentobject_id = ezcontentobject.id
 					  AND ezcontentobject.id = fezmeta_data.contentobject_id
 					  AND ezcontentobject_tree.node_id = $nodeID ";
+			if ( $language != '' )
+			{
+				$query.= " AND fezmeta_data.language='" . $language . "'";
+			}
+			
+			
 			$metaDataList = $db->arrayQuery( $query );
 			foreach( $metaDataList as $metaData )
 			{
@@ -337,7 +348,7 @@ class feZMetaData extends eZPersistentObject
 	 for those which are empty.	 
 	 \return Meta Data Collection
 	*/
-	static function fetchBySubTree( $nodeID, $depth, $asObject = true )
+	static function fetchBySubTree( $nodeID, $depth, $asObject = true, $language='' )
 	{
 		$ini = eZINI::instance( 'ezmetadata.ini' );
 		$metasList = $ini->variable( 'MetaData','AvailablesMetaData' );
@@ -347,12 +358,12 @@ class feZMetaData extends eZPersistentObject
 			$metasListState[$metaName] = false;
 		}
 		
-		return self::searchMetas( $nodeID, $depth, array(), $metasListState );
+		return self::searchMetas( $nodeID, $depth, array(), $metasListState, $language );
 	}
 	
-	private static function searchMetas( $nodeID, $depth, $retArray, $metasListState )
+	private static function searchMetas( $nodeID, $depth, $retArray, $metasListState, $language='' )
 	{
-		$metasNode = self::fetchByNodeID( $nodeID );
+		$metasNode = self::fetchByNodeID( $nodeID, true, $language );
  		// update of the metas which are not defined
 		foreach( $metasNode as $meta )
 		{
@@ -385,7 +396,6 @@ class feZMetaData extends eZPersistentObject
 	 \param $asObject Determine if 
 	 \return Meta Data Collection
 	*/
-
 	static function fetchByContentObjectID( $contentObjectID, $asObject = true )
 	{
 		$retNodes = array();
@@ -394,7 +404,7 @@ class feZMetaData extends eZPersistentObject
 		{
 			$query = "SELECT fezmeta_data.*
 					  FROM fezmeta_data 
-					  WHERE fezmeta_data.contentobject_id = $contentObjectID ";
+					  WHERE fezmeta_data.contentobject_id = $contentObjectID";
 			$metaDataList = $db->arrayQuery( $query );
 			foreach( $metaDataList as $metaData )
 			{
@@ -410,6 +420,9 @@ class feZMetaData extends eZPersistentObject
 		}
 	}
 
+    /*!
+     Return the result in a feZMetaData object
+    */
 	static function makeObjectArray( $array )
 	{
 		$retNodes = null;

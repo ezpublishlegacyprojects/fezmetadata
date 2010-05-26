@@ -1,1 +1,5 @@
 See http://projects.ez.no/fezmetadata
+
+If you are upgrading an existing fezmetadata extension where you want language support, run
+
+sql/update/schema.sql

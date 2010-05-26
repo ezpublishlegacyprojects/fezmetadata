@@ -1,7 +1,7 @@
 <?php
 //
 // SOFTWARE NAME: feZ Meta Data
-// SOFTWARE RELEASE: 1.0
+// SOFTWARE RELEASE: 1.1
 // COPYRIGHT NOTICE: Copyright (C) 2007 Frédéric DAVID
 // SOFTWARE LICENSE: GNU General Public License v2.0
 // NOTICE: >
@@ -24,7 +24,7 @@ class fezmetadataInfo
 	static function info()
 	{
 		return array( 'name' => 'feZ Meta Data',
-					  'version' => '1.0.0beta',
+					  'version' => '1.1.0beta',
 					  'copyright' => 'Copyright (C) 1999-2007 Frédéric DAVID',
                       'license' => "GNU General Public License v2.0"
 					 );

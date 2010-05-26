@@ -18,6 +18,8 @@
 
 {/let}
 
+	<!-- EIRIK META -->
+
     <title>{$site_title}</title>
 
     {section show=and(is_set($#Header:extra_data),is_array($#Header:extra_data))}
@@ -37,7 +39,7 @@
 
     {/section}
 
-	{def $meta_data_list = fetch( fezmetadata, list_by_node_id, hash( node_id, $module_result.node_id ) )}
+	{def $meta_data_list = fetch( fezmetadata, list_by_node_id, hash( node_id, $module_result.node_id, language, ezini( 'RegionalSettings', 'Locale', 'site.ini' ) ) )}
 	{foreach $meta_data_list as $meta_data}
 		<meta name="{$meta_data.meta_name|wash}" content="{$meta_data.meta_value|wash}" />
 	{/foreach}

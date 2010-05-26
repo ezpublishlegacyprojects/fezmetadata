@@ -18,4 +18,9 @@ Operator=ezmetadata_keywords
 Name=Title
 Operator=ezmetadata_title
 
-*/ 
+[Language]
+List[]
+List[nor-NO]=Norsk
+List[eng-GB]=Engelsk
+
+*/ ?>

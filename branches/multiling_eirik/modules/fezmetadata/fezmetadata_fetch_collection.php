@@ -11,15 +11,15 @@ class feZMetaDataFetchCollection
         return array( 'result' => feZMetaData::fetch( $metaDataID ) );
 	}
 
-	function fetchByNodeID( $nodeID )
+	function fetchByNodeID( $nodeID, $language='' )
 	{
-		$retMetaData = feZMetaData::fetchByNodeID( $nodeID);
+		$retMetaData = feZMetaData::fetchByNodeID( $nodeID, true, $language);
 		return array( 'result' => $retMetaData );
 	}
 
-    function fetchBySubTree($nodeID, $depth)
+    function fetchBySubTree($nodeID, $depth, $language='')
     {
-        $retMetaData = feZMetaData::fetchBySubTree( $nodeID, $depth);
+        $retMetaData = feZMetaData::fetchBySubTree( $nodeID, $depth, true, $language);
         return array( 'result' => $retMetaData );
     }
 

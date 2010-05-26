@@ -3,7 +3,7 @@
 // Created on: <7-Jui-2008 10:18:22 sp>
 //
 // SOFTWARE NAME: feZ Meta Data
-// SOFTWARE RELEASE: 1.0.0
+// SOFTWARE RELEASE: 1.1.0
 // COPYRIGHT NOTICE: Copyright (C) 2008 Frédéric DAVID
 // SOFTWARE LICENSE: GNU General Public License v2.0
 // NOTICE: >
@@ -34,10 +34,11 @@ if( $http->hasPostVariable( 'PublishButton' ) )
 	$ContentObjectID = $http->postVariable( 'ContentObjectID' );
 	$MetaName = $http->postVariable( 'metaDataName' );
 	$MetaValue = $http->postVariable('metaDataValue' );
+	$language = $http->postVariable( 'language' );
 
 	if( $metaID == 0 )
 	{
-		$MetaDataObject = feZMetaData::create( $MetaName, $MetaValue, $ContentObjectID );
+		$MetaDataObject = feZMetaData::create( $MetaName, $MetaValue, $ContentObjectID, $language );
 	}
 	else
 	{

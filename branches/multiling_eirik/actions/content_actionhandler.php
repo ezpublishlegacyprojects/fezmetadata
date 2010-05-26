@@ -3,7 +3,7 @@
 // Created on: <02-Jui-2008 16:24:15 fd>
 //
 // SOFTWARE NAME: feZ Meta Data
-// SOFTWARE RELEASE: 1.0.0
+// SOFTWARE RELEASE: 1.1.0
 // COPYRIGHT NOTICE: Copyright (C) 2008 Frédéric DAVID
 // SOFTWARE LICENSE: GNU General Public License v2.0
 // NOTICE: >
@@ -33,7 +33,7 @@ function feZMetaData_ContentActionHandler( &$module, &$http, &$objectID )
 		$http->redirect( $link );
 	}
 
-	// Action when user cliks on the Remove Button
+	// Action when user clicks on the Remove Button
 	if( $http->hasPostVariable( 'RemoveMetaDataButton' ) and $http->hasPostVariable( 'MetaDataIDSelection' ) )
 	{
 		$metaDataSelection = $http->postVariable( 'MetaDataIDSelection' );
