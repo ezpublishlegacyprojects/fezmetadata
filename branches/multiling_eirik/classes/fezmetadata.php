@@ -387,7 +387,7 @@ class feZMetaData extends eZPersistentObject
 		{
 			return $retArray;
 		}
-		return self::searchMetas( $node->object()->mainParentNodeID(), $depth - 1, $retArray, $metasListState );
+		return self::searchMetas( $node->attribute( 'parent_node_id' ), $depth - 1, $retArray, $metasListState, $language );
 	}
 
 	/*!
